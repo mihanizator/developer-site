@@ -33,4 +33,4 @@ Downlaod latest client from [release github page](https://github.com/exogress/cl
 
 ## Docker
 
-Use docker image: [glebpom/exogress](https://hub.docker.com/r/glebpom/exogress)
+Use docker image: [quay.io/exogress/exogress](quay.io/exogress/exogress)
