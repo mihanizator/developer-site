@@ -2,7 +2,7 @@
 
 ## Creating Account
 
-You will need to Exogress account to use the service. Please, visit [https://app.exogress.com](https://app.sexogress.com/) and create new account.
+You will need to Exogress account to use the service. Please, visit [https://app.exogress.com](https://app.exogress.com/) and create new account.
 
 ## Creating Project
 
