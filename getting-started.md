@@ -1,29 +1,29 @@
-# Gettting Started
+# Getting Started
 
 ## Creating Account
 
-You will need to Exogress account to use the service. Please, visit [https://app.exogress.com](https://app.exogress.com/) and create new account.
+You will need to Exogress account to use the service. Please, visit [https://app.exogress.com](https://app.exogress.com/) and create a new account.
 
 ## Creating Project
 
-Project is the place, where your configurations lives in. You will be prompted to create your first project once your account is ready. Later, you'll be able to add more projects.
+Project is the place where your configurations live in. You will be prompted to create your first project once your account is ready. Later, you'll be able to add more projects.
 
 ## Creating Access Token
 
-Choose `Access Tokens` section under the sidebar. Write down the accesss token name and press `Create Access Token`. You will need two token:
+Click the `Access Tokens` section under the sidebar. Write down the access token name and press `Create Access Token`. You will need two tokens:
 
 - `ACCESS_KEY_ID`
 - `SECRET_ACCESS_KEY`
 
-Make sure you save the secret token to secure place, it will be impossible to retrieve it later.
+Make sure you save the secret token to a secure place; it will be impossible to retrieve it later.
 
 ## Adding your Domain
 
-By default, Exogress allows to create subdomain under the `sexg.link`.
+By default, Exogress allows creating subdomain under the `sexg.link` or add your own domain.
 
-Visit `Domain` section under the sidebar.
+Visit the` Domain` section in the sidebar.
 
-Select the desire subdomain name, and click `Create`. Exogress will take care of issueing TLS certificates for you. Wait for the certificate state to become `ready`
+Enter the desire domain name, and click `Create`. Exogress will take care of issuing TLS certificates for you. Wait for the certificate state to become `ready`
 
 ## Adding the Mount Point
 
@@ -34,7 +34,7 @@ page, and chose the domain from the select box it will be linked to.
 
 Now we are ready to try Exogress.
 
-Create default exogress configuration file in your repositoy
+Create default exogress configuration file in your repository
 
 ```
 $ exogress init
@@ -42,7 +42,7 @@ $ exogress init
 
 This will create `Exofile` in your current directory. Please refer to [Configuration section](/exofile.md) for the details
 
-Default configuration will forward requests to port `3000` on `localhost`.
+The default configuration will forward requests to port `3000` on `localhost`.
 
 Run your Exogress client
 
@@ -50,4 +50,4 @@ Run your Exogress client
 $ exogress spawn --access-key-id=<ACCESS_KEY_ID> --secret-access-key=<SECRET_ACCESS_KEY> --account <ACCOUNT_NAME> --project <PROJECT_NAME>
 ```
 
-That's it. Now the server on port `3000` is available under the selected domain
+That's it. Now the server on port `3000` is available under the selected domain.

@@ -29,7 +29,7 @@ $ apt install exogress
 
 ## Windows
 
-Downlaod latest client from [release github page](https://github.com/exogress/cli/releases)
+Download latest client from [release GitHub page](https://github.com/exogress/cli/releases)
 
 ## Docker
 
