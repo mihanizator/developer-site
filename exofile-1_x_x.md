@@ -1,20 +1,19 @@
 
 # Version 1.x.x
 
-## Project config vs Instance config
+## Project config vs Client config
 
-There are two types of configurations. The first one is instance-level config, which typically lives in your git repositories in the Exofile file. Another config type is project-level config, which lives in the cloud (currently on the project page on the Exogress web application).
+There are two types of configurations. The first one is client-level config, which typically lives in your git repositories in the `Exofile` file. Another config type is project-level config, which lives in the cloud (currently on the project page on the Exogress web application).
 
-There may be multiple instance-level configs, but only one project-level config.
+There may be multiple client-level configs, but only one project-level config.
 
-Some handlers may be defined in instance-level config only, others in project-level config only. Each handler documentation entry contains the information on which type of config is supported.
+Some handlers may be defined in client-level config only, in project-level config only or in both config types. Each handler documentation entry contains the information on which type of config is supported.
 
-
-## Default instance configuration
+## Default client configuration
 
 ```yaml
 ---
-version: 1.0.0
+version: 1.0.0-pre.1
 revision: 1
 name: my-config-name
 mount-points:
@@ -23,8 +22,6 @@ mount-points:
       my-handler:
         type: proxy
         upstream: my-upstream
-        base-path: []
-        replace-base-path: []
         priority: 10
 upstreams:
   my-upstream:
@@ -37,7 +34,7 @@ upstreams:
 
 ?> introduced in 1.0.0
 
-?> Instance & Project
+?> Client & Project
 
 `version` field defines the minimum version that exogress client should support. The Patch version is always expected to be 0. Since this page describes the major version 1, it should always be 1.
 All features, introduced in a later minor version will still be available, even if it's lower in this field. It's recommended to bump the version if new features are required.
@@ -46,28 +43,28 @@ All features, introduced in a later minor version will still be available, even 
 
 ?> introduced in 1.0.0
 
-?> Instance only
+?> Client only
 
 Config name represents the peace of configuration, which is dynamically loaded into one or more Mount Points. There may be multiple config names related to a single Mount Point,
 as well as a single config that works with numerous Mount Points.
 
-Name uniquely identifies the particular Exofile. Exogress servers will validate that multiple instances with the same `name` and `revision` announce the same config.
+Name uniquely identifies the particular `Exofile` content. Exogress servers will validate that multiple Clients with the same `name` and `revision` announce exactly the same config.
 
 ### revision
 
 ?> introduced in 1.0.0
 
-?> Instance only
+?> Client only
 
-Revision is used to define how different instances with the same config `name` are performing upgrades. Because the same `name` and `revision` should represent the
-same config, one needs to bump the revision number so that system may perform a rolling-upgrade. Otherwise, the new config will never be applied if at least one instance with the same
+Revision is used to define how different Clients with the same config `name` are performing upgrades. Because the same `name` and `revision` should represent the
+same config, one needs to bump the revision number so that system may perform a rolling-upgrade. Otherwise, the new config will never be applied if at least one Client with the same
 `name` is still online.
 
 ### mount-points
 
 ?> introduced in 1.0.0
 
-?> Instance & Project
+?> Client & Project
 
 A list of mount points where this config will load its handlers.
 A hash-map, where keys are mount points, and the values are the mount point body. Mount point body contains only one key: [`handlers`](/exofile-1_x_x?id=handlers).
@@ -76,19 +73,19 @@ A hash-map, where keys are mount points, and the values are the mount point body
 
 ?> introduced in 1.0.0
 
-?> Instance & Project
+?> Client & Project
 
 ### upstreams
 
 ?> introduced in 1.0.0
 
-?> Instance only
+?> Client only
 
 ### handlers
 
 ?> introduced in 1.0.0
 
-?> Instance & Project
+?> Client & Project
 
 The hash-map, where keys are handler identifiers (should be unique across mount point), and values are the handler body.
 
@@ -96,7 +93,7 @@ The hash-map, where keys are handler identifiers (should be unique across mount 
 
 ?> introduced in 1.0.0
 
-?> Instance & Project
+?> Client & Project
 
 Handler represents the particular step that Exogress edge server should perform. There are different kinds of handlers. Field `type` defines which handler should be used. There are a few common fields:
 
@@ -108,7 +105,7 @@ Handler represents the particular step that Exogress edge server should perform.
 
 ?> introduced in 1.0.0
 
-?> Instance only
+?> Client only
 
 Serve the static directory from the computer where the exogress client is running.
 
@@ -116,7 +113,7 @@ Serve the static directory from the computer where the exogress client is runnin
 
 ?> introduced in 1.0.0
 
-?> Instance only
+?> Client only
 
 Reverse proxy / Load Balancer handler. Forward requests to one of the defined [upstreams](/exofile-1_x_x?id=upstream)
 
@@ -124,13 +121,13 @@ Reverse proxy / Load Balancer handler. Forward requests to one of the defined [u
 
 ?> introduced in 1.0.0
 
-?> Instance only
+?> Client only
 
 ## Rules
 
 ?> introduced in 1.0.0
 
-?> Instance & Project
+?> Client & Project
 
 Rules may be defined on any handler— their goal is to provide behavior modifications on handler processing.
 
@@ -186,14 +183,6 @@ If the path may be written as a wildcard (e.g., filter), special wildcard syntax
 - Multiple wildcard segments: `["segment1", "*", "segment2"]`. Any number of segments may exist between the first and the last one. There may be only one `*` wildcard segment.
 - Regular expression: `["/segment\d+/"]`
 
-### Path Substitution
-
-?> not available in the version 1.0.0
-
-Paths may be rewritten with other paths following the rewriting templates. They work in cooperation with wildcard paths.
-
-- mathcher `["segment1", "*", "segment2"]` with rewrite: `["api", "$1"]`. This will lead to catching any number of segments between `segment1` and `segment2` and prepending `api` before them. `/segment1/a/b/c/segment2` will beome `/api/a/b/c`
-- mathcher `["segment1", "?", "segment2"]` with rewrite: `["api", "$1"]`. This will lead to catching a single segments between `segment1` and `segment2` and prepending `api` before it. `/segment1/a/segment2` will beome `/api/a`
 
 ## Exceptions
 
