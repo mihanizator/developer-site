@@ -20,7 +20,7 @@ mount-points:
   my-mount-point:
     handlers:
       my-handler:
-        type: proxy
+        kind: proxy
         upstream: my-upstream
         priority: 10
 upstreams:
@@ -138,7 +138,7 @@ mount-points:
   my-mount-point:
     handlers:
       backend:
-        type: proxy
+        kind: proxy
         upstream: server
         priority: 10
         rules:
