@@ -13,7 +13,7 @@ Some handlers may be defined in client-level config only, in project-level confi
 
 ```yaml
 ---
-version: 1.0.0-pre.1
+version: 1.0.0
 revision: 1
 name: my-config-name
 mount-points:
