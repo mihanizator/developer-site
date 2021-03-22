@@ -7,7 +7,7 @@ Visit [https://app.exogress.com](https://app.exogress.com/) to create a new acco
 ### Choose your account and subdomain names
 
 You will be prompted to provide your account name. This will be associated with your third-level domain name in Exogress, and couldn't be changed.
-Next, we ask you to specify a fourth-level subdomain - this will be the first default url. These domains are free and you could always add your own domain at any time later.
+Next, we ask you to specify a fourth-level subdomain - this will be the first default url. This domain is free and easy to launch; you would be able to add 4th level or your own domain at any time later.
 
 ### Creating Project
 
@@ -26,18 +26,19 @@ Make sure you save the secret token to a secure place; it will be impossible to 
 
 ### Adding your Domain
 
-Exogress allows to create a subdomain under the `your_account.exg.link` or to add your own domain.
+Exogress allows to create a subdomain under the `<your_account>.exg.link` or to add your own domain.
 
-Visit `Domain` section in the sidebar, click `Add Domain in `your_account.exg.link`` and enter desired hostname under your fourth-level domain, then click `Save`. Exogress will take care of issuing TLS certificates for you. Wait for the certificate status to become `ready` as you won't be able to use the service until that.
+Visit `Domain` section in the sidebar, click `Add Domain in `<your_account>.exg.link`` and enter desired third-level domain, then click `Save`. Exogress will take care of issuing TLS certificates for you. Wait for the certificate status to become `ready` as you won't be able to use the service until that.
 
-To add your own domain, navigate to the "Custom domains" tab and click `Add Custom Domain`. There, provide your custom domain name and strict transport security expiration period in seconds (recommended is 31536000).
-You can create and delete Mount Points at any time.
+To add your own domain, navigate to the "Custom domains" tab and click `Add Custom Domain`. There, provide your custom domain name, add a CNAME record to your domain's DNS records and finally, provide a strict transport security expiration period in seconds: recommended value is 31536000. Make sure the DNS records are propagated before proceeding.
+
 
 ### Adding Mount Point
 
 Mount points live inside your projects, it's a core entity that connects your Exofiles with your domains. The benefit of mount points is that you don't link your Exofile configuration directly with domains, so that you may use the same Exofiles under different accounts, and different domain names.
 
 Once you've registered, a `default` Mount Point is created in the project page. Choose your domain from the select box it will be linked to and click `Save Mapping`.
+You can create and delete Mount Points at any time.
 
 ### Spawning Exogress Client
 
