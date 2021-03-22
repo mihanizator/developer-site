@@ -1,7 +1,8 @@
-Swiss army knife for web application delivery
+Expose your web app by simply running it
 =============================================
 
-![alt text](https://app.exogress.com/exogress.png "Exogress")
+![alt text](https://user-images.githubusercontent.com/10335584/111993826-09a01f80-8b52-11eb-8413-f1d8d8f7291f.png "Exogress")
+
 
 At Exogress, we work on democratizing the infrastructure setup required to expose your web application.
 
