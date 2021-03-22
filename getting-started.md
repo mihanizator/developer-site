@@ -28,7 +28,7 @@ Make sure you save the secret token to a secure place; it will be impossible to 
 
 Exogress allows to create a subdomain under the `<your_account>.exg.link` or to add your own domain.
 
-Visit `Domain` section in the sidebar, click `Add Domain in `<your_account>.exg.link`` and enter desired third-level domain, then click `Save`. Exogress will take care of issuing TLS certificates for you. Wait for the certificate status to become `ready` as you won't be able to use the service until that.
+Visit `Domain` section in the sidebar, click `Add Domain in `<your_account>.exg.link`` and enter desired fourth-level subdomain name, then click `Save`. Exogress will take care of issuing TLS certificates for you. Wait for the certificate status to become `ready` as you won't be able to use the service until that.
 
 To add your own domain, navigate to the "Custom domains" tab and click `Add Custom Domain`. There, provide your custom domain name, add a CNAME record to your domain's DNS records and finally, provide a strict transport security expiration period in seconds: recommended value is 31536000. Make sure the DNS records are propagated before proceeding.
 
