@@ -6,8 +6,7 @@ Visit [https://app.exogress.com](https://app.exogress.com/) to create a new acco
 
 ### Choose your account and subdomain names
 
-You will be prompted to provide your account name. This will be associated with your third-level domain name in Exogress, and couldn't be changed.
-Next, we ask you to specify a fourth-level subdomain - this will be the first default url. This domain is free and easy to launch; you would be able to add 4th level or your own domain at any time later.
+You will be prompted to provide your account name and a subdomain name in `exg.link` zone. Your account will be associated with the third-level domain, and couldn't be changed in the future. You will be able to create fourth-level subdomains in this domain.
 
 ### Creating Project
 
@@ -30,8 +29,7 @@ Exogress allows to create a subdomain under the `<your_account>.exg.link` or to 
 
 Visit `Domain` section in the sidebar, click `Add Domain in `<your_account>.exg.link`` and enter desired fourth-level subdomain name, then click `Save`. Exogress will take care of issuing TLS certificates for you. Wait for the certificate status to become `ready` as you won't be able to use the service until that.
 
-To add your own domain, navigate to the "Custom domains" tab and click `Add Custom Domain`. There, provide your custom domain name, add a CNAME record to your domain's DNS records and finally, provide a strict transport security expiration period in seconds: recommended value is 31536000. Make sure the DNS records are propagated before proceeding.
-
+To add your own domain, navigate to the "Custom domains" tab and click `Add Custom Domain`. There, provide your custom domain name, add a CNAME record to your domain's DNS records and finally, provide a strict transport security expiration period in seconds: recommended value is 31536000. You must add the provided record in your DNS zone, otherwise you will not be able to register the domain. Make sure the DNS records are propagated, depenfing on zone configuration, it make take significant amount of time.
 
 ### Adding Mount Point
 
