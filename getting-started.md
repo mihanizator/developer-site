@@ -2,11 +2,12 @@
 
 ### Creating Account
 
-Visit [https://app.exogress.com](https://app.exogress.com/) to create a new account and follow the instructions. Make sure you have activated your account.
+Visit [https://app.exogress.com](https://app.exogress.com/) to create a new account and follow the instructions. If you signed up using email, make sure you have activated your account.
 
 ### Choose your account and subdomain names
 
-Custom third-leved subdomain under `exg.link` is provided for your apps and is available by default. You could always add your own domain at any time later.
+You will be prompted to provide your account name. This will be associated with your third-level domain name in Exogress, and couldn't be changed.
+Next, we ask you to specify a fourth-level subdomain - this will be the first default url. These domains are free and you could always add your own domain at any time later.
 
 ### Creating Project
 
@@ -25,11 +26,11 @@ Make sure you save the secret token to a secure place; it will be impossible to 
 
 ### Adding your Domain
 
-Exogress allows to create a subdomain under the `exg.link` or to add your own domain.
+Exogress allows to create a subdomain under the `your_account.exg.link` or to add your own domain.
 
-Visit `Domain` section in the sidebar, click `Add Domain in `your_domain.exg.link`` and enter desired hostname under your third-level domain, then click `Save`. Exogress will take care of issuing TLS certificates for you. Wait for the certificate status to become `ready` as you won't be able to use the service until that.
+Visit `Domain` section in the sidebar, click `Add Domain in `your_account.exg.link`` and enter desired hostname under your fourth-level domain, then click `Save`. Exogress will take care of issuing TLS certificates for you. Wait for the certificate status to become `ready` as you won't be able to use the service until that.
 
-To add your own domain, navigate to the "Custom domains" tab and click `Add Custom Domain`. There, provide your custom domain name and sctict transport security expiration period in seconds (recommended is 31536000).
+To add your own domain, navigate to the "Custom domains" tab and click `Add Custom Domain`. There, provide your custom domain name and strict transport security expiration period in seconds (recommended is 31536000).
 You can create and delete Mount Points at any time.
 
 ### Adding Mount Point
