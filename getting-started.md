@@ -11,7 +11,7 @@ You will be prompted to provide your account name and a subdomain name in `exg.l
 ### Creating Project
 
 Project is a place your configuration lives in, and you could add and delete projects at any time.
-Navigate to **Projects** and click `+Add project`. Give Project a name and click `Save`
+Navigate to `+Add project` under **Projects** menu. Give your Project a name and click `Save`.
 
 ### Creating Access Token
 
