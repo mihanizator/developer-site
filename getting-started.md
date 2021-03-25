@@ -59,3 +59,23 @@ $ exogress spawn --access-key-id=<ACCESS_KEY_ID> --secret-access-key=<SECRET_ACC
 ```
 
 That's it. Now the server on port `3000` is available under the selected domain.
+
+## Additional configuration
+
+### Project-level config
+
+Project-level config simplifies configuration in cases when you have multiple client-level configs and want to set some common behaviour across all of them, and works even without any running clients. Upstreams, proxy and static-dir handlers are not allowed for the Project-level config.
+
+### Certificates
+
+We use LetsEncrypt to issue and renew TLS certificates for your domains. Make sure the status is `Ready` before sending the traffic to the domain.
+
+### Project params
+
+Params are additonal variables that you can set to enhance your config. By default we create a system parameter `compressible-mime-types` to process content types. You are able to create new params:
+- aws-credentials
+- s3-bucket
+- google-credentials
+- gcs-bucket
+- acl
+- static-response
