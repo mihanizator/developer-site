@@ -5,18 +5,30 @@ Swiss army knife for web application delivery
 
 At Exogress, we work on democratizing the infrastructure setup required to expose your web application.
 
-### Removing multi-layer configuration
 
-Application delivery configuration can get multi-layered and complicated. Separate setup required across all services involved - backends, load balancers, CDNs and so on.
-Exogress introduces a tunneling concept. Each backend server has an Exogress client running, and can establish a secure direct connection with the edge gateway. It allows you to move delivery functions out of your infrastructure, and, as a developer, you need to simply run your code somewhere: a public cloud, development machine or raspberry pi.
+Engineers typically deals with multiple components to deliver the web traffic to and from their web apps.
 
-Exogress has only two layers - **Edge Gateways Network as a service** and your **data sources** - backends and static content.
+### Localhost / Tunnels
+Typically we start from running our apps on the localhost. It may work until you need to deal with webhooks or  you want
+to share the results with others. In this case you may want to use services like [ngrok](https://ngrok.com).
 
-### Advanced configuration management
+### Load Balancers / Reverse-proxy
+When your application is on the server, you would typically want it to be at least 
 
-Traditionally, all delivery components require setting up various systems with different configuration management. Depending on the environment, some functions just impossible to implement, or there is a high risk of misconfiguration.
-Exogress introduces a state-of-art YAML configuration file - `Exofile`. It's stored right in your code repository, allowing you to configure delivery in a single place.
+- Protected with HTTPS
+- Load-Balanced
+- Reachable by the end user
 
-### Cloud- and environment agnostic
+### Content-Delivery Network (CDN)
+Some content need to be served really fast. By the combination of `Cache-Control` and CDN this is achievable.
 
-With Exogress, your app delivery configuration doesn't change when you migrate to another cloud provider.
+### Static Web Sites Hosting
+Sometimes it doesn't make sense to host static web applications on your servers. It may be enough to use services like 
+[Netlify](https://www.netlify.com).
+
+All of these components are important and takes a significant part in the modern web delivery infrastructure. But there is 
+a downside on such a fragmentation - error-prone configuration, incompatibility, additional effort to make them play together.
+
+Exogress, on the other hand, combines all this tools under the single hood. It is, at the same time, a Load Balancer,
+a Serverless platform and a CDN, and, it just works in any environment without extra setup costs. It works on localhost, 
+on your server or Raspberry Pi.

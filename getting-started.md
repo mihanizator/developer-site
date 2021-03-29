@@ -78,8 +78,6 @@ upstreams:
 
 The configuration above will forward requests to port `3000` on `localhost`. Please refer to [Configuration section](/exofile.md) for the details.
 
-
-
 Run your Exogress client
 
 ```
@@ -98,12 +96,67 @@ Project-level config simplifies configuration in cases when you have multiple cl
 
 We use LetsEncrypt to issue and renew TLS certificates for your domains. Make sure the status is `Ready` before sending the traffic to the domain.
 
-### Project params
+### Project Parameters
 
-Params are additonal variables that you can set to enhance your config. By default we create a system parameter `compressible-mime-types` to process content types. You are able to create new params:
-- aws-credentials
-- s3-bucket
-- google-credentials
-- gcs-bucket
-- acl
-- static-response
+Parameters may be referred from both project- and client- configs. Sometimes keeping the data in the config may be awkward
+or insecure, or the same data may be required by more than one config. Parameters are created specifically to handle this
+situations. There are certain config values which may be replaces with parameters.
+
+#### Example
+
+Here is the simple config which enforce github authorization.
+```yaml
+---
+version: 1.0.0
+revision: 1
+name: proxy
+mount-points:
+  default:
+    handlers:
+      auth:
+        kind: auth
+        github:
+          acl:
+            - allow: github-user
+        priority: 10
+```
+Eventually ACL may become large, and it would be hard to manage it in the config file. Let's create the parameter
+`github-acl` and `acl` schema with the following content:
+
+```yaml
+---
+- allow: github-user
+```
+
+And update the config as follows:
+```yaml
+---
+version: 1.0.0
+revision: 1
+name: proxy
+mount-points:
+  default:
+    handlers:
+      auth:
+        kind: auth
+        github:
+          acl: "@github-acl"
+        priority: 10
+```
+
+It would work exactly the same, but is much cleaner in terms of configuration readability.
+
+By default, we create a system parameter `compressible-mime-types` which is used to identify which content-type should
+be compressed. System parameters can't be deleted, but user may change it's content.
+
+In addition to system parameters, users may create any number of parameters with the following types:
+
+- `aws-credentials`
+- `s3-bucket`
+- `google-credentials`
+- `gcs-bucket`
+- `acl`
+- `static-response`
+- `mime-types`
+
+Please, refer to the configuration section for more details on using the parameters.
