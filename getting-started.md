@@ -40,17 +40,45 @@ You can create and delete Mount Points at any time.
 
 ### Spawning Exogress Client
 
-Now we are ready to launch Exogress client.
-
-Create default exogress configuration file in your repository
+Next step is to create a client-level config, which typically lives in your git repositories in the configuration file - "Exofile.yml".
+In your directory, run commmand
 
 ```
-$ exogress init
+exogress init <PARAMETER> --port=3000
 ```
 
-This will create `Exofile` in your current directory. Please refer to [Configuration section](/exofile.md) for the details
+Where specified port is passed as an argument (`3000` in the example), adn <PARAMETER> is one of the currently supported frameworks:
 
-The default configuration will forward requests to port `3000` on `localhost`.
+```
+laravel-artisan          Initialize Exofile.yml for Laravel with Artisan server
+matrix-synapse-docker    Initialize matrix-synapse docker app with Exofile.yml
+proxy                    Initialize Exofile.yml for simple proxying
+rails                    Initialize Exofile.yml for Ruby On Rails
+svelte                   Initialize Exofile.yml for Svelte
+```
+
+Running the command with a selected parameter will create `Exofile.yml` in your current directory. Below is the default configuration of the Exofile:
+
+```
+---
+version: 1.0.0
+revision: 1
+name: default
+mount-points:
+  default:
+    handlers:
+      proxy:
+        kind: proxy
+        priority: 50
+        upstream: backend
+upstreams:
+  backend:
+    port: 3000
+```
+
+The configuration above will forward requests to port `3000` on `localhost`. Please refer to [Configuration section](/exofile.md) for the details.
+
+
 
 Run your Exogress client
 
