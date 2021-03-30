@@ -7,26 +7,26 @@ repositories in the `Exofile.yml` file. Another config type is project-level con
 
 There may be multiple client-level configs, but only one project-level config.
 
-Some handlers may be defined in client-level config only, in project-level config only or in both config types. Each
-handler documentation entry contains the information on which type of config is supported.
+Some handlers are allowed in the client-level config (Exofile.yml), only in the project-level config, or in both config
+types. Each handler documentation entry contains the information on which kind of config is supported.
 
 ## Core entities
 
 ### Mount Point
 
-Mount point is an identifier, which is used to connect the configuration with domain
+Mount point is an identifier, which is used to connect the configuration with the domain
 name. [Learn more](/config-1_x_0?id=mount-points)
 
 ### Handlers
 
-Handlers perform the actual work. Handlers are ordered by the `priority` field under the mount point, and are invoked
+Handlers perform the actual work. Handlers are ordered by the `priority` field under the mount point and are invoked
 step-by-step.
 
 Each handler contains the following fields:
 
-- `base-path` and `replace-base-path`. Handler may be places under the different root. For instance, imaging you want to
-  serve uploads from the S3 buckets under the path prefix `/uploads/`. Files in S3 bucket are stored in the root dir,
-  not prefixed with `/uploads`. This is the handler configuration which make it work:
+- `base-path` and `replace-base-path`. The handler may be placed under a different root. For instance, imaging you want
+  to serve uploads from the S3 buckets under the path prefix `/uploads/`. Files in the S3 bucket are stored in the root
+  dir, not prefixed with `/uploads`.
 
 ```yaml
 uploads:
@@ -46,7 +46,7 @@ uploads:
 
 #### Rules
 
-Each handler contains the `rule` block, which defines how handler should react on the request depending on its path,
+Each handler contains the `rule` block, which defines how the handler should react to the request depending on its path,
 query parameters, headers, etc. As a result of rule processing, the handler may be invoked, skipped, perform
 static-response or throw the exception.
 
@@ -81,24 +81,24 @@ filter:
 
 ### Path Matcher and trailing slash policy
 
-Exogress treats patch segment as a first class citizen, so that you defined rules based on arrays of segments, not the
-whole path matchers.
+Exogress treats path segments as a first-class citizen. You define filters based on arrays of segments, not the whole
+path string.
 
-There are different kinds of segment(s) matchers available:
+There are different kinds of path segment(s) matchers available:
 
-- Strict match. The simple string will be strictly matched
+- Strict match. Strictly match with strings equality.
 - Any segment. `?` symbol is used to match against any segment on the position
 - Any number of segments. `*` is used when any number of segments is allowed. This symbol may be used only once in the
   path matcher.
 - Choice. If the segment is an array, any of the provided values are allowed on the position
 - Regular Expression. Segment starting and ending with `/` symbol is treated as a regular expression.
 
-Array notation for path segments doesn't cover if path ends with `/` or not. `trailing-slash` is used for that. Possible
-values are: `require`, `allow`, and `deny`
+Array notation for path segments doesn't cover if the path ends with `/` or not. `trailing-slash` is used for that.
+Possible values are: `require`, `allow`, and `deny`
 
 ### Query Matcher
 
-Query matchers are used to match the GET query parameters. They are mostly similar to path matchers, but have some
+Query matchers are used to match the GET query parameters. They are mostly similar to path matchers but have some
 differences.
 
 - Strict match. The simple string will be strictly matched
@@ -106,7 +106,7 @@ differences.
 - Any number of segments. `*` is just like `?` but allows `/` symbol
 - Choice. Any of the provided values are allowed on the position
 - Regular Expression. Segment starting and ending with `/` symbol is treated as a regular expression.
-- `~` (yaml notation for `nil`). Optionally any value. Used only to capture the value, does not affect the filtering.
+- `~` (YAML notation for `nil`). Optionally any value. Used only to capture the value; does not affect the filtering.
 
 ### Exceptions
 
@@ -114,13 +114,13 @@ Exogress uses the concept of exceptions, just like most of the modern programmin
 explicitly instruct Exogress servers to throw the exception, or it may occur due to the incorrect configuration file,
 processing error, etc.
 
-Exception name has the following form
+Exception name has the following form:
 
 ```
 segment1:segment2:segment3
 ```
 
-Exception name represents the inheritance, when we read it from the left to the right.
+Exception name represents the inheritance when we read it from left to right.
 
 For example:
 
@@ -128,9 +128,9 @@ For example:
 proxy-error:upstream-unreachable:connection-rejected
 ```
 
-means that this exception belongs to the exception class `proxy-error` and it's
-subclass `proxy-error:upstream-unreachable`. This is useful in the rescue blocks, so that we don't need to point all
-possible exceptions which should lead, for example, to "Gateway Error" page, but just use the parent segment:
+means that this exception belongs to the exception class `proxy-error`, and it's
+subclass `proxy-error:upstream-unreachable`. This is useful in the rescue blocks so that we don't need to point all
+possible exceptions which should lead, for example, to the "Gateway Error" page, but just use the parent segment:
 
 ```yaml
 rescue:
@@ -142,7 +142,7 @@ rescue:
 
 ### Rescue
 
-Rescue blocks are used to catch exceptions as well as to handle HTTP status codes, generated by the particular handler.
+Rescue blocks are used to catch exceptions and handle HTTP status codes generated by the particular handler.
 
 Rescue blocks are checked one-by-one according to the visibility rules.
 
@@ -162,7 +162,7 @@ or
 status-code:5xx
 ```
 
-This rescue blocks are applied whe the response is successfully generated, and we need to customize the behavior
+These rescue blocks are applied when the response is successfully generated, and we need to customize the behavior
 depending on the resulting status code.
 
 Status-code matcher may be in the one of the following forms:
@@ -196,7 +196,7 @@ Each rescue block should contain the `action` field. Allowed values are:
 
 It is often required that the server just responds with the predefined static-response.
 
-Static responses may be defined in parameters, client or project config or just defined in the place where they are
+Static responses may be defined in parameters, client- or project- config, or just inlined in the place where they are
 required.
 
 Example:
@@ -240,7 +240,7 @@ static-responses:
 
 #### Redirections
 
-Redirection is a kind of static-response. There are multiple status-codes fo redirection. User may choose which one to
+Redirection is a kind of static-response. There are multiple status-codes for redirection. User may choose which one to
 use:
 
 - `moved-permanently`
@@ -255,7 +255,7 @@ Redirection destination may be defined in different forms:
 
 - String (e.g. `https://google.com`). The exact destination
 - Path segments array. e.g. `["seg1"]`
-- Path segments array starting with the protocol and host name. e.g. `["https://google.com", "seg1"]`
+- Path segments array starting with the protocol and hostname. e.g. `["https://google.com", "seg1"]`
 
 Path segments may contain substitution to customize redirects based on the request.
 
@@ -289,13 +289,13 @@ rules:
       redirect-type: moved-permanently
 ```
 
-`query-params` contains the `strategy` field which may be one of `remove` and `keep`. Strategy defies how to deal with
-query parameters from initial request.
+`query-params` contains the `strategy` field, which may be one of `remove` and `keep`. Strategy defines how to deal with
+query parameters from the initial request.
 
 - `keep` save all parameters but removes parameters defined in `remove` array
-- `remove` deletes all parameters but keep parameters defined in `keep` array
+- `remove` deletes all parameters but keep parameters specified in `keep` array
 
-In addition to that, `set` object defines query parameters which will be set. Values support substitutions.
+In addition to that, `set` object defines query parameters that will be set. Values support substitutions.
 
 ### Scope of static-responses and catch blocks
 
@@ -314,11 +314,11 @@ The visibility of the particular item depends on where it is defined. Generally,
 5. Handler Project config with the same handler and mount point name
 6. Handler client config with the same mount point name and config name, and a handler name
 
-In other worlds, static responses defined in the Top-level Project config is visible to any configuration block in the
-project configuration, while static responses defined on the mount-point level in client config will be visible on this
-mount point defined in this client config and is invisible for other client configs or project configs.
+In other words, static responses defined in the Top-level Project config is visible to any configuration block in the
+project configuration, while static responses described on the mount-point level in client config will be visible on
+this mount point defined in this client config and is invisible for other client configs or project configs.
 
-The lookup priority is in backward direction. Exogress will start lookup in the most precise point and end-up on the
+The lookup priority is in the backward direction. Exogress will start lookup in the most precise point and end-up on the
 top-level project config.
 
 This system allows having static responses with the same name with different content, as well as rescue blocks catching
@@ -332,9 +332,9 @@ the same exceptions, defined on different levels, with different behavior on dif
 
 ?> Client & Project
 
-`version` field defines the minimum version that exogress client should support. The Patch version is always expected to
-be 0. Since this page describes the major version 1, it should always be 1. It's recommended to bump the version when
-new minor version is released.
+`version` field defines the minimum version that the Exogress client should support. The Patch version is always
+expected to be 0. Since this page describes the major version 1, it should always be 1. It's recommended to bump the
+version when a new minor version is released.
 
 ### name
 
@@ -346,8 +346,8 @@ Config name represents the peace of configuration, which is dynamically loaded i
 be multiple config names related to a single Mount Point, as well as a single config that works with numerous Mount
 Points.
 
-Name uniquely identifies the particular `Exofile.yml` content. Exogress servers will validate that multiple Clients with
-the same `name` and `revision` announce exactly the same config.
+Name uniquely identifies the particular `Exofile.yml` content. Exogress servers will validate that multiple clients with
+the same `name` and `revision` announce the same config.
 
 ### revision
 
@@ -357,7 +357,7 @@ the same `name` and `revision` announce exactly the same config.
 
 Revision is used to define how different Clients with the same config `name` are performing upgrades. Because the
 same `name` and `revision` should represent the same config, one needs to bump the revision number so that system may
-perform a rolling-upgrade. Otherwise, the new config will never be applied if at least one Client with the same
+perform a rolling-upgrade. Otherwise, the new config will never be applied if at least one client with the same
 `name` is still online.
 
 ### mount-points
@@ -396,8 +396,8 @@ mount-points:
           region: us-west-2
 ```
 
-When request is processed, Exogress builds the list of handlers ordered by priority for each mount point. It typically
-includes multiple active client configs (Exofile.yml) and a project-level config.
+When the request is processed, Exogress builds the list of handlers ordered by priority for each mount point. It
+typically includes multiple active client configs (Exofile.yml) and a project-level config.
 
 ### upstreams
 
@@ -405,7 +405,7 @@ includes multiple active client configs (Exofile.yml) and a project-level config
 
 ?> Client only
 
-Upstream is the way to deliver the traffic to a running web servers.
+Upstream is the way to deliver the traffic to running web servers.
 
 Example upstream:
 
@@ -424,26 +424,26 @@ upstreams:
 
 ### Address
 
-Upstream body contains two keys which define how to reach the upstream:
+The upstream body contains two keys that define how to reach the upstream:
 
 ```yaml
 port: 3000
 host: 192.168.1.2
 ```
 
-`port` is required, `host` may be avoided and is `127.0.0.1` by default. Exogress client typically runs on the same host
-with the web server, so `127.0.0.1` is the reasonable default for the most of the cases.
+`port` is required, `host` may be avoided, and is `127.0.0.1` by default. Exogress client typically runs on the same
+host with the webserver, so `127.0.0.1` is the reasonable default for most of the cases.
 
 ### Health checks
 
 There may be multiple health checks defined on each upstream. Exogress client performs upstreams health checks and
 reports the result to the Exogress Cloud. Exogress gateways will not use the unhealthy upstream.
 
-For now there is only one health check kind: `liveness`. More kinds will be added in the future.
+For now, there is only one health check kind: `liveness`. More kinds will be added in the future.
 `path` defines which path to query. `timeout` defines how long to wait for response. `period` defines how long to sleep
-between requests. Health check is treated successful if response matched the status-code matcher defined
-in `expected-status-code`. Requests headers may be defined in the `headers` object. `method` is responsible for HTTP
-method to use.
+between requests. The health check is treated as successful if the response matched the status-code matcher defined
+in `expected-status-code`. Requests headers may be defined in the `headers` object. `method` is responsible for the HTTP
+method.
 
 ## Handler
 
@@ -556,15 +556,15 @@ priority: 10
 ?> Client
 
 Sometimes it makes sense to vary configuration depending on some conditions. For instance, we may want to use some
-handler only during the development, but skip it in production. Profiles may be used exactly for that.
+handler only in development, but skip in production. Profiles may be used precisely for that.
 
 Exogress client accepts the `profile` configuration option to define which profile to use.
 
-Some configuration blocks on the client config accepts the `profiles` array, to define on which profiles it should be
-active. In case if `profiles` is defined, the configuration block will be disabled by default, otherwise it will be
-enabled and not affected by selected profile.
+Some configuration blocks on the client config accept the `profiles` array to define which profiles it should be active
+on. If `profiles` is defined, the configuration block will be disabled by default. Otherwise, it will be enabled and not
+affected by the selected profile.
 
-`profiles` is supported on the follow configuration blocks:
+`profiles` is supported on the following configuration blocks:
 
 - Mount Point
 - Handler
@@ -575,12 +575,12 @@ enabled and not affected by selected profile.
 
 ## Cache
 
-Edge cache may be enabled and disabled on per-handler basis. Exogress respects HTTP headers and will cache responses
+Edge cache may be enabled and disabled on a per-handler basis. Exogress respects HTTP headers and will cache responses
 which contain the appropriate `Cache-Control` headers.
 
 TODO: more about caching
 
-Caching is disabled by default. Example config with enabled cache on the `proxy` handler.
+Caching is disabled by default. See example config with enabled cache on the `proxy` handler.
 
 ```yaml
 version: 1.0.0
@@ -602,7 +602,7 @@ upstreams:
 
 ## Post-Processing
 
-Exogress edge servers may perform the content optimization.
+Exogress edge servers may perform content optimization.
 
 ### WebP
 
@@ -635,7 +635,7 @@ upstreams:
     port: 11988
 ```
 
-Note, that Exogress may skip optimizations on per-request basis, depending on many conditions. Typically, requests that
+Note that Exogress may skip optimizations on a per-request basis, depending on many conditions. Typically, requests that
 are not eligible for caching will not be converted to WebP.
 
 ## Modifications
@@ -644,7 +644,7 @@ Exogress supports both request and response modifications.
 
 ### Requests Modifications
 
-Most of the handlers proxy the incoming request to some other destination. Often it is required to modify the request,
+Most of the handlers proxy the incoming request to some other destination. Often it is required to modify the request
 when it goes to its destination. This can be reached through [base paths](/config-1_x_0?id=handlers) and through
 the `modify-request` rule config option.
 
@@ -686,7 +686,7 @@ upstreams:
 
 ### Response Modifications
 
-Sometimes it is required to modify the response, after it is generated. The most typical scenario is to enable the
+Sometimes it is required to modify the response after it is generated. The most typical scenario is to enable the
 caching through the `Cache-Control` header.
 
 ```yaml
@@ -703,7 +703,7 @@ mount-points:
         priority: 10
         rules:
           - filter:
-              path: ["*"]
+              path: [ "*" ]
             action: invoke
             on-response:
               - when:
