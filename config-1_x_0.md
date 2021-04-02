@@ -465,6 +465,7 @@ Proxy handler forwards all traffic to the upstream.
 kind: proxy
 upstream: upstream-name
 priority: 10
+websockets: true
 ```
 
 ### `static-dir`
@@ -720,5 +721,3 @@ upstreams:
   upstream:
     port: 11988
 ```
-
-
