@@ -98,7 +98,7 @@ We use LetsEncrypt to issue and renew TLS certificates for your domains. Make su
 
 ### Project Parameters
 
-Sometimes, keeping the data in the config might be inconvenient, or more that one config might use the same data - to handle such situations, we introduced Parameters. You can replace specific config values with parameters and use them in both project- and client- configs.
+Sometimes, keeping your data in the config might not be the best idea for security or other reasons. In some projects, more than one config might use the same data. To handle such situations, we introduced Parameters: you can replace specific config values with parameters and use them in both project- and client- configs.
 
 #### Example
 
