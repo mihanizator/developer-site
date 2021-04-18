@@ -25,9 +25,9 @@ Ensure you save the secret token to a secure place; it will be impossible to ret
 
 ### Adding your Domain
 
-Exogress allows you to create a subdomain under the `<YOUR_ACCOUNT>.exg.link` or add your domain.
+Exogress allows you to create a subdomain under the `<YOUR_SUBDOMAIN>.exg.link` or add your domain.
 
-Visit the `Domain` section in the sidebar, click `Add Domain in <YOUR_ACCOUNT>.exg.link` and enter desired fourth-level subdomain name, then click `Save`. Exogress will take care of issuing TLS certificates for you. Wait for the certificate status to become `ready` as you won't be able to use the service until that.
+Visit the `Domain` section in the sidebar, click `Add Domain in <YOUR_SUBDOMAIN>.exg.link` and enter desired fourth-level subdomain name, then click `Save`. Exogress will take care of issuing TLS certificates for you. Wait for the certificate status to become `ready` as you won't be able to use the service until that.
 
 To add your domain, navigate to the "Custom domains" tab and click `Add Custom Domain`. There, provide your custom domain name, add a CNAME record to your domain's DNS records and finally, provide a strict transport security expiration period in seconds: recommended value is 31536000. You must add the provided record in your DNS zone; otherwise, you will not be able to register the domain. Ensure the DNS records are propagated: depending on zone configuration, it might take a significant amount of time.
 
@@ -44,10 +44,10 @@ The next step is to create a client-level config, which typically lives in your 
 In your directory, run the command
 
 ```
-exogress init <PARAMETER> --port=3000
+exogress init <PARAMETER> 
 ```
 
-Where specified port is passed as an argument (`3000` in the example), and <PARAMETER> is one of the currently supported frameworks:
+Where <PARAMETER> is one of the currently supported frameworks:
 
 ```
 laravel-artisan          Initialize Exofile.yml for Laravel with Artisan server
@@ -55,6 +55,12 @@ matrix-synapse-docker    Initialize matrix-synapse docker app with Exofile.yml
 proxy                    Initialize Exofile.yml for simple proxying
 rails                    Initialize Exofile.yml for Ruby On Rails
 svelte                   Initialize Exofile.yml for Svelte
+```
+
+For the proxy, add a specified port is passed as an argument (`3000` in the example) like in the example below:
+
+```
+exogress init <PARAMETER> --port=3000
 ```
 
 Running the command with a selected parameter will create `Exofile.yml` in your current directory. Below is the default configuration of the Exofile:
