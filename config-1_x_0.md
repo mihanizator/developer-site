@@ -597,13 +597,9 @@ upstreams:
 
 Exogress edge servers may perform content optimization.
 
-### WebP
+### Image Optimizations
 
-WebP is an image format employing both lossy and lossless compression, along with animation and alpha transparency.
-Developed by Google, it was designed to create smaller or better-looking images than the JPEG, PNG, or GIF image
-formats.
-
-Exogress may perform the conversion of png and jpeg responses to WebP format. WebP is enabled by default and is controlled on the handler level.
+Exogress may perform the conversion of png and jpeg responses to WebP and Avif formats.
 
 ```yaml
 version: 1.0.0
@@ -617,18 +613,17 @@ mount-points:
         upstream: upstream
         priority: 10
         post-processing:
-          image:
-            webp:
-              enabled: true
-              jpeg: false
-              png: false
+          image-optimization:
+            enabled: true
+            jpeg: false
+            png: true
 upstreams:
   upstream:
     port: 11988
 ```
 
-Note that Exogress may skip optimizations on a per-request basis, depending on many conditions. Typically, requests that
-are not eligible for caching will not be converted to WebP.
+Image optimization is enabled by default, but Exogress may serve original content on a per-request basis, depending on many conditions. Typically, requests that
+are not eligible for caching will not be optimized.
 
 ## Modifications
 
