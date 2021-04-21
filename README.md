@@ -29,6 +29,6 @@ Sometimes it doesn't make sense to host static web applications on your servers.
 All of these components are important and take a significant part in the modern web delivery infrastructure. But there is 
 a downside on such a fragmentation - error-prone configuration, incompatibility, additional effort to make them play together.
 
-Exogress, on the other hand, combines all these tools under a single hood. It is, at the same time, a Load Balancer,
-a Serverless platform and a CDN, and it just works in any environment without extra setup costs. It works on localhost, 
+Exogress, on the other hand, combines all these tools under a single hood. It is, at the same time, a Load Balancer service, a CDN and
+a Serverless platform (in the near future), and it just works in any environment without extra setup costs. It works on localhost, 
 on your server, or Raspberry Pi.
