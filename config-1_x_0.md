@@ -250,7 +250,18 @@ You can define redirection destination in different forms:
 - Path segments array. e.g. `["seg1"]`
 - Path segments array starting with the protocol and hostname. e.g. `["https://google.com", "seg1"]`
 
-Path segments may contain substitution to customize redirects based on the request.
+
+`query-params` contains the `strategy` field, which may be one of `remove` and `keep`. Strategy defines how to deal with
+query parameters from the initial request.
+
+- `keep` save all parameters but removes parameters defined in `remove` array
+- `remove` deletes all parameters but keep parameters specified in `keep` array
+
+In addition to that, `set` object defines query parameters that will be set. Values support substitutions.
+
+### Substitutions
+
+Redirects and modifications support substitutions.
 
 ```yaml
 rules:
@@ -282,13 +293,10 @@ rules:
       redirect-type: moved-permanently
 ```
 
-`query-params` contains the `strategy` field, which may be one of `remove` and `keep`. Strategy defines how to deal with
-query parameters from the initial request.
-
-- `keep` save all parameters but removes parameters defined in `remove` array
-- `remove` deletes all parameters but keep parameters specified in `keep` array
-
-In addition to that, `set` object defines query parameters that will be set. Values support substitutions.
+Numeric values in `{{ }}` blocks represents path segments matches, while strings represent query parameters. In case of regex matching, the particular group may be addressed through the dot notation:
+```
+{{ 0.2 }}
+```
 
 ### Scope of static-responses and catch blocks
 
