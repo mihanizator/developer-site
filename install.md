@@ -29,9 +29,10 @@ $ apt install exogress
 
 ## Windows
 
-Download latest client from [release GitHub page](https://github.com/exogress/cli/releases)
+Install for [x86_64](https://github.com/exogress/cli/releases/latest/download/exogress-x86_64.msi)
+
+Or download latest exe from [release GitHub page](https://github.com/exogress/cli/releases)
 
 ## Docker
 
 Use docker image: [quay.io/exogress/exogress](https://quay.io/exogress/exogress)
-
