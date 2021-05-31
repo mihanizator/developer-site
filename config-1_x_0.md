@@ -550,6 +550,20 @@ kind: pass-through
 priority: 10
 ```
 
+### `proxy-public`
+
+?> introduced in 1.1.0
+
+?> Client & Projext
+
+Proxy-public handler forwards all traffic to the publicly available HTTPS upstream.
+
+```yaml
+kind: proxy-public
+host: example.com
+priority: 10
+```
+
 ## Profiles
 
 ?> introduced in 1.0.0
@@ -600,6 +614,88 @@ upstreams:
   upstream:
     port: 11988
 ```
+
+### Caching modes
+?> introduced in 1.1.0
+
+?> Client & Project
+
+By default, exogress relies on `Cache-Control` response header. Sometimes it makes sense to cache response on edge servers,
+but avoid caching in the browser, or just use different policies.You may change the caching strategy starting from version
+`1.1.0` on a per-rule basis.
+
+```yaml
+version: 1.1.0
+revision: 1
+name: proxy
+mount-points:
+  default:
+    handlers:
+      proxy:
+        kind: proxy
+        upstream: upstream
+        priority: 40
+        cache:
+          enabled: true
+        rules:
+          - filter:
+              path: []
+            action: invoke
+            cache:
+              mode: force
+              max-age: 24h
+          - filter:
+              path: ["*"]
+            action: invoke
+upstreams:
+  upstream:
+    port: 11988
+```
+
+`mode` may be one of `force`, `prohibit` or `headers` (default).
+
+
+### Invalidations
+
+?> introduced in 1.1.0
+
+?> Client & Project
+
+Users may want to forcefully invalidation certain cached items. It is possible by defining the `invalidation groups`.
+
+```yaml
+version: 1.1.0
+revision: 1
+name: config_name
+mount-points:
+  default:
+    handlers:
+      proxy:
+        kind: proxy
+        upstream: upstream
+        priority: 40
+        cache:
+          enabled: true
+          invalidations:
+            - name: assets
+              filters:
+                - path: ["assets", "*"]
+            - name: root
+              filters:
+                - path: []
+upstreams:
+  upstream:
+    port: 11988
+```
+
+Two new invalidation groups will be created. When HTTP response is saved to the cache, the invalidation groups will be assigned to them.
+You may now use `exogess` CLI application or web interface to invalidate the particular invalidation group.
+
+```
+exogress invalidate -- root/proxy/default/config_name
+```
+
+All cache items linked to the provided invalidation groups will be immediately invalidated.
 
 ## Post-Processing
 
@@ -715,3 +811,40 @@ upstreams:
   upstream:
     port: 11988
 ```
+
+## Languages
+
+When browser performs HTTP request, it typically sends `Accept-Language` header to the server. Starting from config version `1.1.0`
+Exogress can negotiate the best language based on this header and the list of languages provided in the config. You may later use the negotiated
+languages in substitutions and static responses.
+
+```yaml
+---
+version: 1.1.0
+mount-points:
+  default:
+    handlers:
+      lang:
+        kind: proxy
+        upstream: my-upstream
+        priority: 1
+        languages:
+          supported: ["tr", "pl", "es", "ru", "en"]
+          default: "en"
+        rules:
+          - filter:
+              path: []
+            action: respond
+            static-response:
+              kind: redirect
+              redirect-type: temporary-redirect
+              destination: ["{{ language }}"]
+          - filter:
+              path: ["*"]
+            action: invoke
+upstreams:
+  upstream:
+    port: 11988
+```
+
+In this example, the request to root path will redirect to one of the supported languages. If language was not negotiated, it will fall back to "en".
