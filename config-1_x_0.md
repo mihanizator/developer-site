@@ -554,9 +554,9 @@ priority: 10
 
 ?> introduced in 1.1.0
 
-?> Client & Projext
+?> Client & Project
 
-Proxy-public handler forwards all traffic to the publicly available HTTPS upstream.
+Proxy-public handler forwards all traffic to a publicly available HTTPS upstream.
 
 ```yaml
 kind: proxy-public
@@ -620,8 +620,8 @@ upstreams:
 
 ?> Client & Project
 
-By default, exogress relies on `Cache-Control` response header. Sometimes it makes sense to cache response on edge servers,
-but avoid caching in the browser, or just use different policies.You may change the caching strategy starting from version
+By default, Exogress relies on the `Cache-Control` response header. Sometimes it makes sense to cache response on the edge servers,
+but avoid caching in the browser, or just use different policies. You can change caching strategy starting from version
 `1.1.0` on a per-rule basis.
 
 ```yaml
@@ -652,7 +652,7 @@ upstreams:
     port: 11988
 ```
 
-`mode` may be one of `force`, `prohibit` or `headers` (default).
+`mode` could be one of `force`, `prohibit` or `headers` (default).
 
 
 ### Invalidations
@@ -661,7 +661,7 @@ upstreams:
 
 ?> Client & Project
 
-Users may want to forcefully invalidation certain cached items. It is possible by defining the `invalidation groups`.
+Some users may want to invalidate certain cached items forcefully. It can be done by defining the `invalidation groups`.
 
 ```yaml
 version: 1.1.0
@@ -688,14 +688,14 @@ upstreams:
     port: 11988
 ```
 
-Two new invalidation groups will be created. When HTTP response is saved to the cache, the invalidation groups will be assigned to them.
-You may now use `exogess` CLI application or web interface to invalidate the particular invalidation group.
+Two new invalidation groups will be created. They will be assigned to the HTTP response once it's saved in the cache.
+You may now use `exogress` CLI application or web interface to invalidate the particular invalidation group.
 
 ```
 exogress invalidate -- root/proxy/default/config_name
 ```
 
-All cache items linked to the provided invalidation groups will be immediately invalidated.
+By running the command, you will immediately invalidate all cache items linked to the provided invalidation groups
 
 ## Post-Processing
 
@@ -814,7 +814,7 @@ upstreams:
 
 ## Languages
 
-When browser performs HTTP request, it typically sends `Accept-Language` header to the server. Starting from config version `1.1.0`
+When the browser performs an HTTP request, it typically sends the `Accept-Language` header to the server. Starting from config version `1.1.0`
 Exogress can negotiate the best language based on this header and the list of languages provided in the config. You may later use the negotiated
 languages in substitutions and static responses.
 
